@@ -1,5 +1,5 @@
 const argumentInstructionPattern = new RegExp("(" + Object.keys(instructions).join("|") + ") +(#?\\d+)", "i");
-const argumentlessInstructionPattern = new RegExp("(" + Object.keys(instructions).join("|") + ")")
+const argumentlessInstructionPattern = new RegExp("(" + Object.keys(instructions).join("|") + ")", "i")
 function parseAssembly()
 {
     const command = document.querySelector("#prompt").value;
@@ -10,7 +10,7 @@ function parseAssembly()
         return;
     }
     
-    const opcode = match[1];
+    const opcode = match[1].toLowerCase();
 
     document.querySelector("#invalid").hidden = true;
     if (match[2])
