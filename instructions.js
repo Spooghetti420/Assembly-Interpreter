@@ -1,38 +1,26 @@
 const instructions = {
     "add": {
         name: "Add",
-        instruction: (value) => { accumulator(accumulator() + value) },
+        instruction: (value) => { accumulator(accumulator() + parseInt(getMemory(value))) },
         info: "Adds the operand to the accumulator."
     },
 
     "sub": {
         name: "Subtract",
-        instruction: (value) => { accumulator(accumulator() - value) },
+        instruction: (value) => { accumulator(parseInt(accumulator()) - parseInt(getMemory(value))) },
         info: "Subtracts the operand from the accumulator."
         
     },
     "lda": {
         name: "Load",
-        instruction: (value) => { accumulator(value) },
+        instruction: (value) => { accumulator(getMemory(value)) },
         info: "Loads the value in memory at the operand into the accumulator. Best used with immediate addressing (#)."
     },
     
-    "sto": {
+    "sta": {
         name: "Store",
         instruction: (value) => { setMemory(value, accumulator())},
         info: "Stores the accumulator to the value in memory specified by the operand. Best used with immediate addressing (#)."
-    },
-
-    "lft": {
-        name: "Left bit shift",
-        instruction: (value) => { accumulator(accumulator() >> value)},
-        info: "Shifts the binary representation of the accumulator to the left as many places as stated in the operand."
-    },
-
-    "rht": {
-        name: "Right bit shift",
-        instruction: (value) => { accumulator(accumulator() << value)},
-        info: "Shifts the binary representation of the accumulator to the right as many places as stated in the operand."
     },
 
     "inp": {
@@ -45,18 +33,52 @@ const instructions = {
         name: "Output",
         instruction: () => { log(accumulator())},
         info: "Outputs the value of the accumulator."
+    },
+    "bra": {
+        name: "Branch always",
+        instruction: (value) => { programCounter(value) },
+        info: "Sets the value of the program counter to the input."
+    },
+    "brp": {
+        name: "Branch if positive or zero",
+        instruction: (value) => { if(accumulator() >= 0 ) { programCounter(value) } },
+        info: "Sets the value of the program counter to the input, only if the accumulator is positive or zero."
+    },
+    "brz": {
+        name: "Branch if zero",
+        instruction: (value) => { if(accumulator() === 0 ) { programCounter(value) } },
+        info: "Sets the value of the program counter to the input, only if the accumulator is zero."
+    },
+    "hlt": {
+        name: "Halt",
+        instruction: () => {},
+        info: "Halts the CPU. Has no effect when used from the command prompt."
     }
+    
+
 }
 
 function accumulator(value)
 {
     const acc = document.querySelector("#accumulator");
-    if (value)
+    if (value || value === 0)
     {
         acc.textContent = value;
     } else
     {
         return parseInt(acc.textContent);
+    }
+}
+
+function programCounter(value)
+{
+    const pc = document.querySelector("#programCounter");
+    if (value || value === 0)
+    {
+        pc.textContent = value;
+    } else
+    {
+        return parseInt(pc.textContent);
     }
 }
 

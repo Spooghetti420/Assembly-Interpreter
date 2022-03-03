@@ -1,5 +1,23 @@
 table, th, td {
     border:1px solid black;
+    text-align: center;
+}
+
+table {
+    width: 70%;
+}
+
+.container {
+    display: flex;
+}
+
+.inline {
+    display: inline-block;
+}
+
+
+td.shaded {
+    background-color: rgba(255, 0, 0, 0.4);
 }
 
 div#output {
@@ -12,4 +30,8 @@ div#output {
 
 .faint {
     color: rgb(114, 112, 112)
+}
+
+textarea {
+    resize: none;
 }

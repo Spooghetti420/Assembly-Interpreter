@@ -26,23 +26,33 @@
             table.innerHTML = inner;
         }
     </script>
-    <title>Assembly Interpreter</title>
+    <title>Little Man Computer</title>
 </head>
 <body onload="makeMemory();">
 <p><b>Main page</b> ・ <a href="instructions.html">Instructions</a></p>
-<h1>Assembly Interpreter</h1>
+<h1>Assembly Interpreter and Compiler</h1>
+<div class="inline">
 <h3>Accumulator</h3>
-<span id="accumulator">0</span>
+<p id="accumulator">0</p>
+<h3>Program counter</h3>
+<p id="programCounter">0</p>
+</div>
 <hr>
 <h3>Enter instruction</h3>
-<form action="#" onsubmit="parseAssembly(); return false" id="form">
+<form action="#" onsubmit="interpretAssembly(); return false">
     <input type="text" id="prompt"></input> <span id="invalid" hidden>Invalid input</span>
 </form>
-<hr>
-<h3>Memory</h3>
+<div class="container">
+<form action="#">
+    <textarea id="assemblyBox" rows="32" cols="32" style="padding:0;" spellcheck="false"></textarea>
+</form>
 <table id="memory">
 </table>
-
+</div>
+<input type="button" id="assembleButton" value="Assemble" onclick="assembleProgram();">
+<input type="button" id="runProgram" value="Run program" onclick="runProgram();">
+<input type="button" id="stepProgram" value="Step" onclick="nextInstruction();">
+<input type="button" id="reset" value="Reset" onclick="programCounter(0); accumulator(0);">
 <hr>
 <h3>Output</h3>
 <div id="output">
